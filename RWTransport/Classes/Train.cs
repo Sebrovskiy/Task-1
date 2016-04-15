@@ -100,8 +100,8 @@ namespace RWTransport.Classes
                 _mySortTrain.Sort((x, y) => (x as PassengerRailCar).Comfort.CompareTo((y as PassengerRailCar).Comfort));
                 foreach (var x in _mySortTrain)
                 {
-                    Console.WriteLine("Passangers train car {0}, people capacity {1}", 
-                        (x as PassengerRailCar).PassengerRailCarType, (x as PassengerRailCar).PeopleCapacity);
+                    Console.WriteLine("Passangers train car {0}, free places {1}", 
+                        (x as PassengerRailCar).PassengerRailCarType, (x as PassengerRailCar).PeopleCapacity - (x as PassengerRailCar).CurrentPeopleLoad);
                 }
             }
 
@@ -111,7 +111,7 @@ namespace RWTransport.Classes
             var result = GetCarByType(TransportType.PassengerRailCar).Where(MyDelegate);
             foreach (var c in result)
             {
-                Console.WriteLine((c as PassengerRailCar).CurrentPeopleLoad);
+                Console.WriteLine("{0} meets a condition", (c as PassengerRailCar).PassengerRailCarType);
             }
         }
 

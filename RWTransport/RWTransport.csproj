@@ -50,14 +50,14 @@
     <Compile Include="Classes\Train.cs" />
     <Compile Include="Classes\Builder.cs" />
     <Compile Include="Interfaces\IFreightCar.cs" />
-    <Compile Include="Interfaces\FreightCarType.cs" />
+    <Compile Include="Types\FreightCarType.cs" />
     <Compile Include="Interfaces\ILocomotive.cs" />
-    <Compile Include="Interfaces\PassengerRailCarType.cs" />
-    <Compile Include="Interfaces\LocomotiveEngineType.cs" />
-    <Compile Include="Interfaces\LocomotiveType.cs" />
+    <Compile Include="Types\PassengerRailCarType.cs" />
+    <Compile Include="Types\LocomotiveEngineType.cs" />
+    <Compile Include="Types\LocomotiveType.cs" />
     <Compile Include="Interfaces\IPassengerRailCar.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
-    <Compile Include="Interfaces\TransportType.cs" />
+    <Compile Include="Types\TransportType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
