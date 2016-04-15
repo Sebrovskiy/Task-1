@@ -1,0 +1,6 @@
+E:\Проекты\RWTransport\RWTransport\bin\Debug\RWTransport.exe.config
+E:\Проекты\RWTransport\RWTransport\obj\Debug\RWTransport.csprojResolveAssemblyReference.cache
+E:\Проекты\RWTransport\RWTransport\bin\Debug\RWTransport.exe
+E:\Проекты\RWTransport\RWTransport\bin\Debug\RWTransport.pdb
+E:\Проекты\RWTransport\RWTransport\obj\Debug\RWTransport.exe
+E:\Проекты\RWTransport\RWTransport\obj\Debug\RWTransport.pdb
