@@ -1,5 +1,6 @@
 ﻿using RWTransport.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace RWTransport.Classes
 {
     class Train
     {
+        private List<ITransport> _myTrain = new List<ITransport>();
+        #region Properties
         public List<ITransport> MyTrain
         {
             get 
@@ -16,7 +19,22 @@ namespace RWTransport.Classes
                 return _myTrain;
             }
         }
-        private List<ITransport> _myTrain = new List<ITransport>();
+        public bool ICanMove
+        {
+            get
+            {
+                int _mass = 0;
+                foreach (var c in _myTrain)
+                {
+                    if (c is ILocomotive) _mass += (c as ILocomotive).MaxTrainMass;
+                }
+
+                return (this.GetAllMassTrain() < _mass);
+            }
+        }
+        #endregion
+
+        #region Methods
         public void AddTransport(ITransport transport)
         {
             _myTrain.Add(transport);
@@ -40,7 +58,7 @@ namespace RWTransport.Classes
             int _passengers = 0;
             foreach (var c in _myTrain)
             {
-                if (c is PassengerRailCar) _passengers += (c as PassengerRailCar).CurrentPeopleLoad;
+                if (c is IPassengerRailCar) _passengers += (c as IPassengerRailCar).CurrentPeopleLoad;
                 if (c is MotorCoach) _passengers += (c as MotorCoach).CurrentPeopleLoad;
             }
             return _passengers;
@@ -50,7 +68,7 @@ namespace RWTransport.Classes
             int _baggage = 0;
             foreach (var c in _myTrain)
             {
-                if (c is PassengerRailCar) _baggage += (c as PassengerRailCar).BaggageMass;
+                if (c is IPassengerRailCar) _baggage += (c as IPassengerRailCar).BaggageMass;
                 if (c is MotorCoach) _baggage += (c as MotorCoach).BaggageMass;
             }
             return _baggage;
@@ -59,9 +77,9 @@ namespace RWTransport.Classes
         {
             foreach (var c in _myTrain)
             {
-                if (c is PassengerRailCar)
+                if (c is IPassengerRailCar)
                 {
-                    (c as PassengerRailCar).AddPassenger(p);
+                    (c as IPassengerRailCar).AddPassenger(p);
                 }
             }
             return p;
@@ -70,62 +88,45 @@ namespace RWTransport.Classes
         {
             foreach (var c in _myTrain)
             {
-                if (c is FreightCar)
+                if (c is IFreightCar)
                 {
-                    foreach (var x in freight.ToArray())
-                    {
-                        if ((x.VagonType == (c as FreightCar).FreightCarType)&& ((c as FreightCar).CurrentLoad)==0)
-                        {
-                            x.FreightMass = (c as FreightCar).Load(x.FreightMass);
-                            if (x.FreightMass == 0)
-                            {
-                                freight.Remove(x);
-                            }
-                            break;
-                        }                        
-                    }
+                    freight = (c as IFreightCar).AddFreight(freight);
                 }
             }
             return freight;
         }
-        public void SortByComfort()
+        public List<ITransport> SortByComfort()
         {
              List<ITransport> _mySortTrain = GetCarByType(TransportType.PassengerRailCar);
              if (_mySortTrain.Count == 0)
             {
-                Console.WriteLine("This train hasn't passangers train cars");
+                return null;
             }
             else
             {
-                _mySortTrain.Sort((x, y) => (x as PassengerRailCar).Comfort.CompareTo((y as PassengerRailCar).Comfort));
-                foreach (var x in _mySortTrain)
-                {
-                    Console.WriteLine("Passangers train car {0}, free places {1}", 
-                        (x as PassengerRailCar).PassengerRailCarType, (x as PassengerRailCar).PeopleCapacity - (x as PassengerRailCar).CurrentPeopleLoad);
-                }
+                _mySortTrain.Sort((x, y) => (x as IPassengerRailCar).Comfort.CompareTo((y as IPassengerRailCar).Comfort));
             }
-
+             return _mySortTrain;
         }
-        public void SelectByNumberOfPassengers(Func<ITransport, bool> MyDelegate)
+        public List<ITransport> SelectByNumberOfPassengers(Func<ITransport, bool> MyDelegate)
         {
-            var result = GetCarByType(TransportType.PassengerRailCar).Where(MyDelegate);
-            foreach (var c in result)
+            List<ITransport> _mySortTrain = new List<ITransport>();
+            foreach (var c in GetCarByType(TransportType.PassengerRailCar).Where(MyDelegate))
             {
-                Console.WriteLine("{0} meets a condition", (c as PassengerRailCar).PassengerRailCarType);
+                _mySortTrain.Add(c);
             }
+            return _mySortTrain;
         }
-
-       
-
         private List<ITransport> GetCarByType(TransportType t)
         {
             List<ITransport> _mySortTrain = new List<ITransport>();
             foreach (var x in _myTrain)
             {
-                if (x is PassengerRailCar) _mySortTrain.Add(x);
+                if (x is IPassengerRailCar) _mySortTrain.Add(x);
             }
             return _mySortTrain;
  
         }
+        #endregion       
     }
 }

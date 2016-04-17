@@ -11,6 +11,7 @@ namespace RWTransport.Classes
     {
         int _currentLoad;
         Random r = new Random();
+        #region Constructor
         public FreightCar(FreightCarType FreightCarType, int MaxLoad, int WeightWithoutLoad)
         {
             this.FreightCarType = FreightCarType; this.MaxLoad = MaxLoad;
@@ -22,6 +23,9 @@ namespace RWTransport.Classes
             this.FreightCarType = FreightCarType; this.MaxLoad = MaxLoad;
             this.WeightWithoutLoad = WeightWithoutLoad; this.CurrentLoad = CurrentLoad;
         }      
+        #endregion
+
+        #region Properties
         public FreightCarType FreightCarType { get; private set;}
         public int MaxLoad { get; private set;}
         public int WeightWithoutLoad { get; private set; }
@@ -37,14 +41,16 @@ namespace RWTransport.Classes
                 else
                 {
                     _currentLoad = MaxLoad;
-                    //Событие перегрузка
                 }
-            } 
+            }
         }
         public TransportType TransportType
         {
             get { return TransportType.FreightCar; }
         }       
+        #endregion
+
+        #region Methods
         public int Load(int mass)
         {
             if ((_currentLoad + mass) <= MaxLoad)
@@ -57,7 +63,6 @@ namespace RWTransport.Classes
                 mass = mass - MaxLoad + _currentLoad;
                 _currentLoad = MaxLoad;
                 return mass;
-                // событие 
             }
         }
         public void UnLoad()
@@ -68,6 +73,26 @@ namespace RWTransport.Classes
         {
             return WeightWithoutLoad + _currentLoad;
         }
-       
+        public List<Freight> AddFreight(List<Freight> freight)
+        {
+
+            foreach (var x in freight.ToArray())
+            {
+                if (CurrentLoad == 0)
+                {
+                    if (this.FreightCarType == x.VagonType)
+                    {
+                        x.FreightMass = this.Load(x.FreightMass);
+                        if (x.FreightMass == 0)
+                        {
+                            freight.Remove(x);
+                        }
+                        break;
+                    }                   
+                }
+            }
+            return freight;
+        }
+        #endregion
     }
 }

@@ -19,28 +19,37 @@ namespace RWTransport
             {
                 PassengerTrain = Builder.PassengerTrain();
                 Console.WriteLine("Passengers train has arrived:");
-                //foreach (var x in PassengerTrain.MyTrain)
-                //{
-                //    if ((x is PassengerRailCar))
-                //    {
-                //        Console.WriteLine("{0} passengers car has {1} free places",
-                //            (x as PassengerRailCar).PassengerRailCarType, 
-                //            ((x as PassengerRailCar).PeopleCapacity - (x as PassengerRailCar).CurrentPeopleLoad));
-                //    }
-                //}
+                foreach (var x in PassengerTrain.MyTrain)
+                {
+                    if ((x is IPassengerRailCar))
+                    {
+                        Console.WriteLine("{0} passengers car has {1} free places",
+                            (x as IPassengerRailCar).PassengerRailCarType,
+                            ((x as IPassengerRailCar).PeopleCapacity - (x as IPassengerRailCar).CurrentPeopleLoad));
+                    }
+                }
                 Console.WriteLine();
                 Console.WriteLine("Sort by comfort and add passengers");
                 PassengerTrain.AddPassengers(passengers);
                 Console.WriteLine();               
-                PassengerTrain.SortByComfort();
+                foreach (var x in PassengerTrain.SortByComfort())
+                {
+                    Console.WriteLine("Passangers train car {0}, free places {1}",
+                        (x as IPassengerRailCar).PassengerRailCarType, (x as IPassengerRailCar).PeopleCapacity - (x as IPassengerRailCar).CurrentPeopleLoad);
+                }
+
                 Console.WriteLine("{0} passengers left", passengers.Count);
                 Console.WriteLine(); Console.ReadLine();
-
+                
                 if (passengers.Count() == 0)
                 {
                     Console.WriteLine("Try to find a passngers cars, whrere current people load beetwen 0 and 50");
-                    Builder.PassengerTrain()
-                       .SelectByNumberOfPassengers(x => ((x as PassengerRailCar).CurrentPeopleLoad > 0 && (x as PassengerRailCar).CurrentPeopleLoad < 100));
+                    List<ITransport> t = Builder.PassengerTrain()
+                       .SelectByNumberOfPassengers(x => ((x as IPassengerRailCar).CurrentPeopleLoad > 0 && (x as IPassengerRailCar).CurrentPeopleLoad < 50));
+                    foreach (var x in t)
+                    {
+                        Console.WriteLine("{0} meets a condition", (x as IPassengerRailCar).PassengerRailCarType);
+                    }
                 }
             }
             Console.WriteLine(); Console.WriteLine("*******************************"); Console.WriteLine();
@@ -56,14 +65,22 @@ namespace RWTransport
                 FreightTrain.AddFreight(freight);
                 foreach (var x in FreightTrain.MyTrain)
                 {
-                    if ((x is FreightCar))
+                    if ((x is IFreightCar))
                     {
                         Console.WriteLine("{0}, current load {1} ton",
-                            (x as FreightCar).FreightCarType, (x as FreightCar).CurrentLoad);
+                            (x as IFreightCar).FreightCarType, (x as IFreightCar).CurrentLoad);
                     }
                 }
                 Console.WriteLine();
-                Console.WriteLine("{0} units of freight in a warehouse", freight.Count()); 
+                Console.WriteLine("{0} units of freight in a warehouse", freight.Count());
+                if (FreightTrain.ICanMove)
+                {
+                    Console.WriteLine("Train left.");
+                }
+                else
+                {
+                    Console.WriteLine("Train overload.");
+                }
                 Console.ReadLine();
             }
 

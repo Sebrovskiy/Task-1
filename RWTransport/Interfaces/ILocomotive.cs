@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RWTransport.Interfaces
 {
-    interface ILocomotive:ITransport
+    public interface ILocomotive:ITransport
     {
         LocomotiveType LocomotiveType { get; }
         LocomotiveEngineType LocomotiveEngineType { get; }

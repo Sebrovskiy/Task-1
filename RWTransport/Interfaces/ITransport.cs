@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RWTransport.Interfaces
 {
-    interface ITransport
+    public interface ITransport
     {
         TransportType TransportType { get; }
         int WeightWithoutLoad { get; }

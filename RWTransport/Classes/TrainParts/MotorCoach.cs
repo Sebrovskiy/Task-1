@@ -9,6 +9,7 @@ namespace RWTransport.Classes
 {
     class MotorCoach : PassengerRailCar, ILocomotive
     {
+        #region Constructor
         public MotorCoach(PassengerRailCarType PassengerRailCarType, int MaxTrainMass, int MaxSpeed,
                           int PeopleCapacity = 50, int WeightWithoutLoad = 50, int MaxBaggageMass=6,
                           LocomotiveEngineType LocomotiveEngineType = LocomotiveEngineType.ElectricEngine)
@@ -17,7 +18,9 @@ namespace RWTransport.Classes
             LocomotiveType = LocomotiveType.PassengerLocomotive ; this.LocomotiveEngineType = LocomotiveEngineType;
             this.MaxTrainMass = MaxTrainMass; this.MaxSpeed = MaxSpeed;
         }
+        #endregion
 
+        #region Properties
         public override TransportType TransportType
         {
             get { return TransportType.MotorCoach; }
@@ -26,17 +29,19 @@ namespace RWTransport.Classes
         public LocomotiveEngineType LocomotiveEngineType { get; private set; }      
         public int MaxTrainMass { get; private set; }     
         public int MaxSpeed { get; private set; }
-        public override int GetRailCarMass()
-        {
-            return WeightWithoutLoad;
-        }
-        public int LocomotiveMass 
+        public int LocomotiveMass
         {
             get
             {
                 return WeightWithoutLoad;
             }
         }
-        
+        public override int GetRailCarMass()
+        {
+            return WeightWithoutLoad;
+        }
+        #endregion
+
+
     }
 }

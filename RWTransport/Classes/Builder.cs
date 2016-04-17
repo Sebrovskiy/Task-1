@@ -8,7 +8,7 @@ using RWTransport.Interfaces;
 
 namespace RWTransport.Classes
 {
-    abstract class Builder
+     abstract class Builder
     {
         public static Train PassengerTrain()
         {
@@ -34,7 +34,6 @@ namespace RWTransport.Classes
 
             return MyTrain;
         }
-
         public static List<Passengers> Passengers()
         {
             List<Passengers> _list = new List<Passengers>();
@@ -46,7 +45,6 @@ namespace RWTransport.Classes
             }
                 return _list;
         }
-
         public static List<Freight> Freight()
         {
             List<Freight> _list = new List<Freight>();

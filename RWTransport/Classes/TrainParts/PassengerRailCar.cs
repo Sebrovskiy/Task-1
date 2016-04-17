@@ -11,6 +11,8 @@ namespace RWTransport.Classes
     {
         Random r = new Random();
         int _currentPeopleLoad; int _currentBaggageMass;
+
+        #region Constructor
         public PassengerRailCar(PassengerRailCarType PassengerRailCarType, int PeopleCapacity, int WeightWithoutLoad)
         {
             this.PassengerRailCarType = PassengerRailCarType; this.PeopleCapacity = PeopleCapacity;
@@ -23,6 +25,9 @@ namespace RWTransport.Classes
             this.PassengerRailCarType = PassengerRailCarType; this.PeopleCapacity = PeopleCapacity;
             this.WeightWithoutLoad = WeightWithoutLoad; this.CurrentPeopleLoad = CurrentPeopleLoad; this.BaggageMass = BaggageMass;
         }
+        #endregion
+
+        #region Properties
         public PassengerRailCarType PassengerRailCarType { get; protected set; }
         public int PeopleCapacity { get; protected set; }       
         public int CurrentPeopleLoad
@@ -48,11 +53,6 @@ namespace RWTransport.Classes
             get { return TransportType.PassengerRailCar; }
         }
         public int WeightWithoutLoad { get; protected set; }
-
-        public virtual int GetRailCarMass()
-        {
-            return WeightWithoutLoad + _currentBaggageMass;            
-        }
         public int BaggageMass
         {
             get
@@ -64,9 +64,27 @@ namespace RWTransport.Classes
                 _currentBaggageMass = value;
             }
         }
+        public byte Comfort
+        {
+            get
+            {
+                switch (PassengerRailCarType)
+                {
+                    case (PassengerRailCarType.Compartment): return 1;
+                    case (PassengerRailCarType.Sleeper): return 2;
+                    case (PassengerRailCarType.Couchette): return 3;
+                    case (PassengerRailCarType.General): return 4;
+                    default: return 0;
+                }
+            }
+        }
+        #endregion
 
-
-
+        #region Methods
+        public virtual int GetRailCarMass()
+        {
+            return WeightWithoutLoad + _currentBaggageMass;            
+        }
         public List<Passengers> AddPassenger(List<Passengers> passengers)
         {
             
@@ -86,22 +104,9 @@ namespace RWTransport.Classes
             }
             
             return passengers;
-            }
-
-        public byte Comfort
-        {
-            get
-            {
-                switch (PassengerRailCarType)
-                {
-                    case (PassengerRailCarType.Compartment): return 1;
-                    case (PassengerRailCarType.Sleeper): return 2;
-                    case (PassengerRailCarType.Couchette): return 3;
-                    case (PassengerRailCarType.General): return 4;
-                    default: return 0;
-                }
-            }
         }
+        #endregion
+
     }
-    }
+}
 

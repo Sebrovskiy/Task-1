@@ -4,3 +4,9 @@ E:\Проекты\RWTransport\RWTransport\bin\Debug\RWTransport.exe
 E:\Проекты\RWTransport\RWTransport\bin\Debug\RWTransport.pdb
 E:\Проекты\RWTransport\RWTransport\obj\Debug\RWTransport.exe
 E:\Проекты\RWTransport\RWTransport\obj\Debug\RWTransport.pdb
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\bin\Debug\RWTransport.exe.config
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\obj\Debug\RWTransport.exe
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\obj\Debug\RWTransport.pdb
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\bin\Debug\RWTransport.exe
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\bin\Debug\RWTransport.pdb
+d:\Crome Downloads\Transport-master\Transport-master\RWTransport\obj\Debug\RWTransport.csprojResolveAssemblyReference.cache
