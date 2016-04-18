@@ -83,25 +83,6 @@ namespace RWTransport
                 }
                 Console.ReadLine();
             }
-
-
-
-
-            
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //MyFreightTrain.SortByComfort();
-
-            //MyTrain.SelectByNumberOfPassengers(x=> ((x as PassengerRailCar).CurrentPeopleLoad >5 && (x as PassengerRailCar).CurrentPeopleLoad<100));
             
             Console.ReadLine();
         }
